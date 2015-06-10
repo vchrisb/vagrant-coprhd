@@ -29,3 +29,8 @@ Password: `ChangeMe`
 
 Documentation for CoprHD is currently the same as the commercial ViPR Product:
 https://community.emc.com/docs/DOC-41200
+
+# Troubleshoot
+
+If you experience an error please look at the logs. The CoprHD build process will download artifacts from the CoprHD Jenkins server.
+I've tested with `Vagrant 1.7.2` and `Virtualbox 4.3.28` on `Windows 7`.
