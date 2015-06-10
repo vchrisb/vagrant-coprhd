@@ -5,7 +5,7 @@ NOT WORKING YET
 
 # Description
 
-Vagrantfile to create a single node CoprHD controller
+Vagrantfile to create a single node CoprHD controller. CoprHD will be build from sources.
 
 # Requirements
 * 4 vCPU 
