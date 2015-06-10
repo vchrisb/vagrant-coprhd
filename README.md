@@ -20,7 +20,7 @@ Finally issue `vagrant up` (if you have more than one Vagrant Provider on your m
 
 Depending on your download bandwidth does the installation and build take some time.
 
-Once Vagrant is done you should be able to connect to CoprHD by opening `https://192.168.100.10`
+Once Vagrant is done you should be able to connect to CoprHD a few minutes later by opening `https://192.168.100.10`. 
 
 Username: `root`
 Password: `ChangeMe`
