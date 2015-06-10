@@ -1,6 +1,8 @@
 vagrant-coprhd
 ---------------
 
+NOT WORKING YET
+
 # Description
 
 Vagrantfile to create a single node CoprHD controller
