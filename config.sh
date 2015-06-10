@@ -32,9 +32,11 @@ do
   shift
 done
 
+#add required users and groups
 groupadd storageos
 useradd -d /opt/storageos -g storageos storageos
 
+#create config file
 cat > /etc/ovfenv.properties << EOF
 network_1_ipaddr6=::0
 network_1_ipaddr=$IP
