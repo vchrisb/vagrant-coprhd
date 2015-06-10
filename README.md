@@ -1,8 +1,6 @@
 vagrant-coprhd
 ---------------
 
-NOT WORKING YET
-
 # Description
 
 Vagrantfile to create a single node [CoprHD](coprhd.github.io) controller. CoprHD will be build from sources.
@@ -32,5 +30,5 @@ https://community.emc.com/docs/DOC-41200
 
 # Troubleshoot
 
-If you experience an error please look at the logs. The CoprHD build process will download artifacts from the CoprHD Jenkins server.
+If you experience an error please look at the logs. The CoprHD build process will download artifacts from the CoprHD Jenkins server and many other ones.
 I've tested with `Vagrant 1.7.2` and `Virtualbox 4.3.28` on `Windows 7`.
