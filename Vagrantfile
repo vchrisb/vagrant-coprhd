@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "#{node_ip}"
 
   config.vm.provider "virtualbox" do |v|
-   v.gui = true
+   v.gui = false
    v.name = "CoprHD1"
    v.memory = 8192
    v.cpus = 4
