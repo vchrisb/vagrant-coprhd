@@ -36,14 +36,23 @@ Vagrant.configure(2) do |config|
    v.cpus = 4
   end
 
-  config.vm.provision "bootstrap", type: "shell", path: "bootstrap.sh"	
-  config.vm.provision "nginx", type: "shell", path: "nginx.sh"	
+  config.vm.provider "vmware_fusion" do |v|
+   v.gui = false
+   v.vmx["displayname"] = "CoprHD1"
+   v.vmx["memsize"] = 8192
+   v.vmx["numvcpus"] = 2
+   v.vmx["cpuid.coresPerSocket"] = 2
+   config.vm.synced_folder ".", "/vagrant", disabled: true
+  end
+
+  config.vm.provision "bootstrap", type: "shell", path: "bootstrap.sh"
+  config.vm.provision "nginx", type: "shell", path: "nginx.sh"
   config.vm.provision "config", type: "shell" do |s|
    s.path = "config.sh"
    s.args   = "--node_ip #{node_ip} --virtual_ip #{virtual_ip} --gw_ip #{gw_ip} --node_count 1 --node_id vipr1"
   end
   config.vm.provision "build", type: "shell", path: "build.sh"
   config.vm.provision "install", type: "shell", path: "install.sh"
-  
+
 end
 2

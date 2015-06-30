@@ -9,14 +9,14 @@ Vagrantfile to create a single node [CoprHD](coprhd.github.io) controller. CoprH
 * 4 vCPU 
 * 8 GB of free RAM
 * Vagrant
-* Virtualbox
+* Virtualbox or VMware Fusion
 
 # Usage
 Either use the "Download ZIP" link on the right side of this page and unpack the zipfile somewhere on your computer, or clone using git: `git clone https://github.com/vchrisb/vagrant-coprhd.git`
 
 Now open a shell and change directory to vagrant-coprhd
 
-Finally issue `vagrant up` (if you have more than one Vagrant Provider on your machine run `vagrant up --provider virtualbox` instead)
+Finally issue `vagrant up`. Depending on your Vagrant Provider you may want to add `--provider virtualbox` or `--provider vmware_fusion`.
 
 Depending on your download bandwidth does the installation and build take some time.
 
