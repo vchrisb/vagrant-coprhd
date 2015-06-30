@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider "vmware_fusion" do |v|
-   v.gui = true
+   v.gui = false
    v.vmx["displayname"] = "CoprHD1"
    v.vmx["memsize"] = 8192
    v.vmx["numvcpus"] = 2
