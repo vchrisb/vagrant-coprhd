@@ -33,6 +33,15 @@ Vagrant.configure(2) do |config|
    v.cpus = 4
   end
 
+  config.vm.provider "vmware_fusion" do |v|
+   v.gui = false
+   v.vmx["displayname"] = "CoprHD1"
+   v.vmx["memsize"] = 8192
+   v.vmx["numvcpus"] = 2
+   v.vmx["cpuid.coresPerSocket"] = 2
+   config.vm.synced_folder ".", "/vagrant", disabled: true
+  end
+  
   # install necessary packages
   config.vm.provision "packages", type: "shell", path: "packages.sh"	
   
@@ -50,6 +59,6 @@ Vagrant.configure(2) do |config|
   
   # install CoprHD RPM
   config.vm.provision "install", type: "shell", path: "install.sh"
-  
+
 end
 2
