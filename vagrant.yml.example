@@ -1,0 +1,19 @@
+---
+vcloudair:
+ username: 'username@domain.com'
+ password: 'Passw0rd'
+ vdc_name: 'M123456789-1234'
+ vdc_network_name: 'M123456789-1234-default-routed'
+ vdc_edge_gateway: 'M123456789-1234'
+ vdc_edge_gateway_ip: '1.2.3.4'
+ catalog_name: 'Vagrant'
+ 
+ vcenter:
+  username: 'username@domain.com'
+  password: 'Passw0rd'
+  hostname: 'host'
+  folder_name: 'Folder'
+  datacenter_name: 'datacenter'
+  computer_name: 'computer'
+  datastore_name: 'datastore'
+  network_name: 'network'

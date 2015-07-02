@@ -1,6 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+#load sensitive date
+require 'yaml'
+settings = YAML.load_file 'vagrant.yml'
+
 # CoprHD IP Address using a host only network
 node_ip = "192.168.100.11"
 virtual_ip = "192.168.100.10"
@@ -33,12 +37,55 @@ Vagrant.configure(2) do |config|
    v.cpus = 4
   end
 
+  # configure VMware Fusion provider
   config.vm.provider "vmware_fusion" do |v|
    v.gui = false
    v.vmx["displayname"] = "CoprHD1"
    v.vmx["memsize"] = 8192
    v.vmx["numvcpus"] = 2
    v.vmx["cpuid.coresPerSocket"] = 2
+   config.vm.synced_folder ".", "/vagrant", disabled: true
+  end
+
+  # configure vCloud Air provider
+  config.vm.provider :vcloudair do |vcloudair|
+	# username and password
+    vcloudair.username = settings['vcloudair']['username']
+    vcloudair.password = settings['vcloudair']['password']
+
+    # if you're using a vCloud Air Dedicated Cloud, put the cloud id here, if
+    # you're using a Virtual Private Cloud, skip this parameter.
+    #vcloudair.cloud_id = '<dedicated cloud id>'
+    vcloudair.vdc_name = settings['vcloudair']['vdc_name']
+
+    # Set the network to deploy our VM on (case sensitive)
+    vcloudair.vdc_network_name = settings['vcloudair']['vdc_network_name']
+
+    # Set our Edge Gateway and the public IP we're going to use.
+    vcloudair.vdc_edge_gateway = settings['vcloudair']['vdc_edge_gateway']
+    vcloudair.vdc_edge_gateway_ip = settings['vcloudair']['vdc_edge_gateway_ip']
+
+    # Catalog that holds our templates.
+    vcloudair.catalog_name = settings['vcloudair']['catalog_name']
+
+    # Set our Memory and CPU to a sensible value for Docker.
+    vcloudair.memory = 8192
+    vcloudair.cpus = 2	
+  end
+
+  # configure vCenter provider
+  config.vm.provider "vcenter" do |v|
+   v.hostname = settings['vcenter']['hostname']
+   v.username = settings['vcenter']['username']
+   v.password = settings['vcenter']['password']
+   v.folder_name = settings['vcenter']['folder_name']
+   v.datacenter_name = settings['vcenter']['datacenter_name']
+   v.computer_name = settings['vcenter']['computer_name']
+   v.datastore_name = settings['vcenter']['datastore_name']
+   v.network_name = settings['vcenter']['network_name']
+   v.linked_clones = true
+   v.memory = 8192
+   v.num_cpu = 4
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
   
