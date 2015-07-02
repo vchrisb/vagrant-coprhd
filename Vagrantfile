@@ -30,20 +30,20 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "#{node_ip}"
 
   # configure virtualbox provider
-  config.vm.provider "virtualbox" do |v|
-   v.gui = false
-   v.name = "CoprHD1"
-   v.memory = 8192
-   v.cpus = 4
+  config.vm.provider :virtualbox do |virtualbox|
+   virtualbox.gui = false
+   virtualbox.name = "CoprHD1"
+   virtualbox.memory = 8192
+   virtualbox.cpus = 4
   end
 
   # configure VMware Fusion provider
-  config.vm.provider "vmware_fusion" do |v|
-   v.gui = false
-   v.vmx["displayname"] = "CoprHD1"
-   v.vmx["memsize"] = 8192
-   v.vmx["numvcpus"] = 2
-   v.vmx["cpuid.coresPerSocket"] = 2
+  config.vm.provider :vmware_fusion do |fusion|
+   fusion.gui = false
+   fusion.vmx["displayname"] = "CoprHD1"
+   fusion.vmx["memsize"] = 8192
+   fusion.vmx["numvcpus"] = 2
+   fusion.vmx["cpuid.coresPerSocket"] = 2
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
@@ -70,22 +70,22 @@ Vagrant.configure(2) do |config|
 
     # Set our Memory and CPU to a sensible value for Docker.
     vcloudair.memory = 8192
-    vcloudair.cpus = 2	
+    vcloudair.cpus = 2
   end
 
   # configure vCenter provider
-  config.vm.provider "vcenter" do |v|
-   v.hostname = settings['vcenter']['hostname']
-   v.username = settings['vcenter']['username']
-   v.password = settings['vcenter']['password']
-   v.folder_name = settings['vcenter']['folder_name']
-   v.datacenter_name = settings['vcenter']['datacenter_name']
-   v.computer_name = settings['vcenter']['computer_name']
-   v.datastore_name = settings['vcenter']['datastore_name']
-   v.network_name = settings['vcenter']['network_name']
-   v.linked_clones = true
-   v.memory = 8192
-   v.num_cpu = 4
+  config.vm.provider :vcenter do |vcenter|
+   vcenter.hostname = settings['vcenter']['hostname']
+   vcenter.username = settings['vcenter']['username']
+   vcenter.password = settings['vcenter']['password']
+   vcenter.folder_name = settings['vcenter']['folder_name']
+   vcenter.datacenter_name = settings['vcenter']['datacenter_name']
+   vcenter.computer_name = settings['vcenter']['computer_name']
+   vcenter.datastore_name = settings['vcenter']['datastore_name']
+   vcenter.network_name = settings['vcenter']['network_name']
+   vcenter.linked_clones = true
+   vcenter.memory = 8192
+   vcenter.num_cpu = 4
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
   
