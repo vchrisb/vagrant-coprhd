@@ -12,6 +12,11 @@ virtual_ip = "192.168.100.10"
 # we are using the vagrant host IP as GW
 gw_ip = "192.168.100.1"
 
+# VM requirements
+memory = 8192
+cpus = 4
+vm_name = 'CoprHD'
+
 Vagrant.configure(2) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -32,18 +37,18 @@ Vagrant.configure(2) do |config|
   # configure virtualbox provider
   config.vm.provider :virtualbox do |virtualbox|
    virtualbox.gui = false
-   virtualbox.name = "CoprHD1"
-   virtualbox.memory = 8192
-   virtualbox.cpus = 4
+   virtualbox.name = vm_name
+   virtualbox.memory = memory
+   virtualbox.cpus = cpus
   end
 
   # configure VMware Fusion provider
   config.vm.provider :vmware_fusion do |fusion|
    fusion.gui = false
-   fusion.vmx["displayname"] = "CoprHD1"
-   fusion.vmx["memsize"] = 8192
-   fusion.vmx["numvcpus"] = 2
-   fusion.vmx["cpuid.coresPerSocket"] = 2
+   fusion.vmx["displayname"] = vm_name
+   fusion.vmx["memsize"] = memory
+   fusion.vmx["numvcpus"] = cpus
+   fusion.vmx["cpuid.coresPerSocket"] = 1
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
@@ -69,8 +74,8 @@ Vagrant.configure(2) do |config|
     vcloudair.catalog_name = settings['vcloudair']['catalog_name']
 
     # Set our Memory and CPU to a sensible value for Docker.
-    vcloudair.memory = 8192
-    vcloudair.cpus = 2
+    vcloudair.memory = memory
+    vcloudair.cpus = cpus
   end
 
   # configure vCenter provider
@@ -80,12 +85,12 @@ Vagrant.configure(2) do |config|
    vcenter.password = settings['vcenter']['password']
    vcenter.folder_name = settings['vcenter']['folder_name']
    vcenter.datacenter_name = settings['vcenter']['datacenter_name']
-   vcenter.computer_name = settings['vcenter']['computer_name']
+   vcenter.computer_name = vm_name
    vcenter.datastore_name = settings['vcenter']['datastore_name']
    vcenter.network_name = settings['vcenter']['network_name']
    vcenter.linked_clones = true
-   vcenter.memory = 8192
-   vcenter.num_cpu = 4
+   vcenter.memory = memory
+   vcenter.num_cpu = cpus
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
   

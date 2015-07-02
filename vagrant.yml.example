@@ -14,6 +14,5 @@ vcloudair:
   hostname: 'host'
   folder_name: 'Folder'
   datacenter_name: 'datacenter'
-  computer_name: 'computer'
   datastore_name: 'datastore'
   network_name: 'network'
