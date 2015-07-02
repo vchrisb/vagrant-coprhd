@@ -1,11 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
-
 # CoprHD IP Address using a host only network
 node_ip = "192.168.100.11"
 virtual_ip = "192.168.100.10"
@@ -18,10 +13,11 @@ Vagrant.configure(2) do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "webhippie/opensuse-13.2"
-
+  # using a minimal OpenSUSE 13.2 64Bit box
+  # Packer Template can be found here: https://github.com/vchrisb/packer-templates
+  # config.vm.box = "webhippie/opensuse-13.2"
+  config.vm.box = "vchrisb/openSUSE-13.2_64"
+  
   # Set up hostname
   config.vm.hostname = "coprhd1.lab.local"
   
@@ -29,6 +25,7 @@ Vagrant.configure(2) do |config|
   # using a specific IP.
   config.vm.network "private_network", ip: "#{node_ip}"
 
+  # configure virtualbox provider
   config.vm.provider "virtualbox" do |v|
    v.gui = false
    v.name = "CoprHD1"
@@ -36,13 +33,22 @@ Vagrant.configure(2) do |config|
    v.cpus = 4
   end
 
-  config.vm.provision "bootstrap", type: "shell", path: "bootstrap.sh"	
+  # install necessary packages
+  config.vm.provision "packages", type: "shell", path: "packages.sh"	
+  
+  # donwload, patch and build nginx
   config.vm.provision "nginx", type: "shell", path: "nginx.sh"	
+  
+  # create CoprHD configuration file
   config.vm.provision "config", type: "shell" do |s|
    s.path = "config.sh"
    s.args   = "--node_ip #{node_ip} --virtual_ip #{virtual_ip} --gw_ip #{gw_ip} --node_count 1 --node_id vipr1"
   end
+  
+  # download and compile CoprHD from sources
   config.vm.provision "build", type: "shell", path: "build.sh"
+  
+  # install CoprHD RPM
   config.vm.provision "install", type: "shell", path: "install.sh"
   
 end
