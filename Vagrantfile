@@ -52,7 +52,15 @@ Vagrant.configure(2) do |config|
    config.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
+  # configure VMware AppCatalyst provider
+  # https://github.com/vmware/vagrant-vmware-appcatalyst
+  config.vm.provider 'vmware_appcatalyst' do |v|
+    v.cpus = cpus
+    v.memory = memory
+  end
+  
   # configure vCloud Air provider
+  # https://github.com/gosddc/vagrant-vcloudair
   config.vm.provider :vcloudair do |vcloudair|
 	# username and password
     vcloudair.username = settings['vcloudair']['username']
@@ -79,6 +87,7 @@ Vagrant.configure(2) do |config|
   end
 
   # configure vCenter provider
+  # https://github.com/gosddc/vagrant-vcenter
   config.vm.provider :vcenter do |vcenter|
    vcenter.hostname = settings['vcenter']['hostname']
    vcenter.username = settings['vcenter']['username']
