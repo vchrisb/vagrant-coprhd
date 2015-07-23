@@ -43,23 +43,23 @@ Vagrant.configure(2) do |config|
             virtualbox.cpus = cpus
           end
           # install necessary packages
-          node.vm.provision "packages", type: "shell", path: "packages.sh"
+          node.vm.provision "packages", type: "shell", path: "scripts/packages.sh"
 
           # donwload, patch and build nginx
-          node.vm.provision "nginx", type: "shell", path: "nginx.sh"
+          node.vm.provision "nginx", type: "shell", path: "scripts/nginx.sh"
 
           # create CoprHD configuration file
           node.vm.provision "config", type: "shell" do |s|
-           s.path = "config.sh"
+           s.path = "scripts/config.sh"
            s.args   = "--node_ip #{node_ip} --virtual_ip #{virtual_ip} --gw_ip #{gw_ip} --node_count #{numNodes} --node_id vipr#{num}"
           end
 
           if num == 1
             # download and compile CoprHD from sources
-            node.vm.provision "build", type: "shell", path: "build.sh"
+            node.vm.provision "build", type: "shell", path: "scripts/build.sh"
           end
           # install CoprHD RPM
-          node.vm.provision "install", type: "shell", path: "install.sh"
+          node.vm.provision "install", type: "shell", path: "scripts/install.sh"
       end
 
     end
