@@ -20,6 +20,9 @@ gw_ip = "#{network}.1"
 memory = 8192
 cpus = 4
 
+# build CoprHD from sources
+build = false
+
 Vagrant.configure(2) do |config|
 
   # try to enable caching to speed up package installation for second run
@@ -56,7 +59,10 @@ Vagrant.configure(2) do |config|
 
           if num == 1
             # download and compile CoprHD from sources
-            node.vm.provision "build", type: "shell", path: "scripts/build.sh"
+            node.vm.provision "build", type: "shell" do |s|
+             s.path = "scripts/build.sh"
+             s.args   = "--build #{build}"
+            end
           end
           # install CoprHD RPM
           node.vm.provision "install", type: "shell", path: "scripts/install.sh"
