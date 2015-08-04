@@ -6,7 +6,7 @@
 #settings = YAML.load_file 'vagrant.yml'
 
 # valid values 1,3,5
-numNodes = 3
+numNodes = 1
 
 # CoprHD IP Address using a host only network
 network = "192.168.100"
@@ -21,7 +21,7 @@ memory = 8192
 cpus = 4
 
 # build CoprHD from sources
-build = false
+build = true
 
 Vagrant.configure(2) do |config|
 
@@ -46,7 +46,10 @@ Vagrant.configure(2) do |config|
             virtualbox.cpus = cpus
           end
           # install necessary packages
-          node.vm.provision "packages", type: "shell", path: "scripts/packages.sh"
+          node.vm.provision "packages", type: "shell" do |s|
+           s.path = "scripts/packages.sh"
+           s.args   = "--build #{build}"
+          end
 
           # donwload, patch and build nginx
           node.vm.provision "nginx", type: "shell", path: "scripts/nginx.sh"
@@ -64,6 +67,7 @@ Vagrant.configure(2) do |config|
              s.args   = "--build #{build}"
             end
           end
+
           # install CoprHD RPM
           node.vm.provision "install", type: "shell", path: "scripts/install.sh"
       end
