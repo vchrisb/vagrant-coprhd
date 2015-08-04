@@ -59,5 +59,5 @@ if [ "$build" = true ] || [ ! -e /vagrant/*.rpm ]; then
   zypper -n install -r suse-13.2-scalpel4k gradle
   zypper modifyrepo -d suse-13.2-scalpel4k
 else
-  zypper -n install patch gcc-c++ pcre-devel libopenssl-devel keepalived
+  zypper -n install patch gcc-c++ pcre-devel libopenssl-devel keepalived make
 fi
