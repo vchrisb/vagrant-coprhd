@@ -20,6 +20,8 @@ zypper -n update
 #remove if existing, otherwise phython-devel and other install will raise a conflict
 zypper -n remove patterns-openSUSE-minimal_base-conflicts
 
+
+
 if [ "$build" = true ] || [ ! -e /vagrant/*.rpm ]; then
 
   #install required packages
@@ -59,5 +61,12 @@ if [ "$build" = true ] || [ ! -e /vagrant/*.rpm ]; then
   zypper -n install -r suse-13.2-scalpel4k gradle
   zypper modifyrepo -d suse-13.2-scalpel4k
 else
-  zypper -n install patch gcc-c++ pcre-devel libopenssl-devel keepalived make
+  zypper -n install patch gcc-c++ pcre-devel libopenssl-devel keepalived make telnet java-1_7_0-openjdk java-1_7_0-openjdk-devel openssh-fips
+
+  zypper addrepo -k -t rpm-md -n suse-13.2-seife http://download.opensuse.org/repositories/home:/seife:/testing/openSUSE_13.2 suse-13.2-seife
+  zypper --gpg-auto-import-keys -n refresh
+  
+  #install sipcalcand disable repo
+  zypper -n install -r suse-13.2-seife sipcalc
+  zypper modifyrepo -d suse-13.2-seife
 fi
