@@ -60,7 +60,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision "build", type: "shell", path: "build.sh"
 
   # install CoprHD RPM
-  config.vm.provision "install", type: "shell", path: "install.sh"
+  config.vm.provision "install", type: "shell" do |s|
+   s.path = "install.sh"
+   s.args   = "--virtual_ip #{virtual_ip}"
+  end
 
 end
 2
