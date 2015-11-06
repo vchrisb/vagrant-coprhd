@@ -8,6 +8,9 @@ virtual_ip = "192.168.100.10"
 # we are using the vagrant host IP as GW
 gw_ip = "192.168.100.1"
 
+# build CoprHD from sources
+build = True
+
 Vagrant.configure(2) do |config|
 
   # try to enable caching to speed up package installation for second run
@@ -17,7 +20,6 @@ Vagrant.configure(2) do |config|
 
   # using a minimal OpenSUSE 13.2 64Bit box
   # Packer Template can be found here: https://github.com/vchrisb/packer-templates
-  # config.vm.box = "webhippie/opensuse-13.2"
   config.vm.box = "vchrisb/openSUSE-13.2_64"
 
   # Set up hostname
@@ -41,27 +43,32 @@ Vagrant.configure(2) do |config|
    v.vmx["memsize"] = 8192
    v.vmx["numvcpus"] = 2
    v.vmx["cpuid.coresPerSocket"] = 2
-   config.vm.synced_folder ".", "/vagrant", disabled: true
   end
 
   # install necessary packages
-  config.vm.provision "packages", type: "shell", path: "packages.sh"
+  config.vm.provision "packages", type: "shell" do |s|
+   s.path = "scripts/packages.sh"
+   s.args   = "--build #{build}"
+  end
 
   # donwload, patch and build nginx
-  config.vm.provision "nginx", type: "shell", path: "nginx.sh"
+  config.vm.provision "nginx", type: "shell", path: "scripts/nginx.sh"
 
   # create CoprHD configuration file
   config.vm.provision "config", type: "shell" do |s|
-   s.path = "config.sh"
+   s.path = "scripts/config.sh"
    s.args   = "--node_ip #{node_ip} --virtual_ip #{virtual_ip} --gw_ip #{gw_ip} --node_count 1 --node_id vipr1"
   end
 
   # download and compile CoprHD from sources
-  config.vm.provision "build", type: "shell", path: "build.sh"
+  config.vm.provision "build", type: "shell" do |s|
+   s.path = "scripts/build.sh"
+   s.args   = "--build #{build}"
+  end
 
   # install CoprHD RPM
   config.vm.provision "install", type: "shell" do |s|
-   s.path = "install.sh"
+   s.path = "scripts/install.sh"
    s.args   = "--virtual_ip #{virtual_ip}"
   end
 

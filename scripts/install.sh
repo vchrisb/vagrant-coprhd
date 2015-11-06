@@ -17,7 +17,10 @@ do
 done
 
 # install CoprHD
-rpm -U /tmp/coprhd-controller/build/RPMS/x86_64/storageos-*.x86_64.rpm
+rpm -U /vagrant/storageos-*.x86_64.rpm
+
+#CoprHD Version
+sudo cat /opt/storageos/etc/product
 
 printf "Waiting for the CoprHD services to start..."
 SERVICES="nginx storageos-api storageos-auth storageos-controller storageos-coordinator storageos-db storageos-portal"
