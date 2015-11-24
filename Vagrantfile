@@ -9,7 +9,7 @@ virtual_ip = "192.168.100.10"
 gw_ip = "192.168.100.1"
 
 # build CoprHD from sources
-build = True
+build = true
 
 Vagrant.configure(2) do |config|
 
