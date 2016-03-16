@@ -39,6 +39,7 @@ do
   sleep $INTERVAL
   let TIMER=TIMER+$INTERVAL
 done
+sleep 60
 
 echo ""
 echo "#########################################################"

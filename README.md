@@ -7,7 +7,7 @@ Vagrantfile to create a single node [CoprHD](coprhd.github.io) controller. CoprH
 
 # Requirements
 * 4 vCPU 
-* 8 GB of free RAM
+* 6 GB of free RAM
 * Vagrant
 * Virtualbox or VMware Fusion
 

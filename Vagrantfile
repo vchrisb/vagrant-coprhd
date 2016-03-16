@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
    v.gui = false
    v.name = "CoprHD1"
-   v.memory = 8192
+   v.memory = 6144
    v.cpus = 4
   end
 
