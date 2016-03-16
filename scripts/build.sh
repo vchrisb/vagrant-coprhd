@@ -17,7 +17,7 @@ done
 if [ "$build" = true ] || [ ! -e /vagrant/*.rpm ]; then
   # build CoprHD
   cd /tmp
-  git clone https://github.com/CoprHD/coprhd-controller.git
+  git clone https://review.coprhd.org/scm/ch/coprhd-controller.git
   cd coprhd-controller
   make clobber BUILD_TYPE=oss rpm
   rm -rf /vagrant/*.rpm

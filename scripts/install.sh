@@ -23,7 +23,7 @@ rpm -U /vagrant/storageos-*.x86_64.rpm
 sudo cat /opt/storageos/etc/product
 
 printf "Waiting for the CoprHD services to start..."
-SERVICES="nginx storageos-api storageos-auth storageos-controller storageos-coordinator storageos-db storageos-portal"
+SERVICES="nginx storageos-api storageos-auth storageos-controller storageos-coordinator storageos-db storageos-installer storageos-portal storageos-sa storageos-sys"
 TIMER=1
 INTERVAL=10
 while [[ "`systemctl is-active $SERVICES`" =~ "inactive" ]];
